@@ -6,7 +6,7 @@ services:
       dockerfile: ./docker/Dockerfile
     restart: unless-stopped
     ports:
-      - "5000:5000"
+      - "5000:5000"  # Asegúrate de exponer el puerto 5000
     deploy:
       resources:
         limits:
@@ -17,7 +17,6 @@ services:
     healthcheck:
       test: ['CMD-SHELL', './venv/bin/python scripts/healthcheck.py']
     command: --ssl --ga-id MY-GA-ID --req-limit 100 --char-limit 500  # Modificar según sea necesario
-    # Uncomment this section and the libretranslate_api_keys volume if you want to backup your API keys
     # environment:
     #   - LT_API_KEYS=true
     #   - LT_API_KEYS_DB_PATH=/app/db/api_keys.db # Same result as `db/api_keys.db` or `./db/api_keys.db`
@@ -28,7 +27,3 @@ services:
     #   - libretranslate_api_keys:/app/db
     # Keep the models in a docker volume, to avoid re-downloading on startup
     #   - libretranslate_models:/home/libretranslate/.local:rw
-
-# volumes:
-#   libretranslate_api_keys:
-#   libretranslate_models:
